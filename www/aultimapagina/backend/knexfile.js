@@ -9,7 +9,7 @@ module.exports = {
       host : 'localhost',
       user : 'root',
       password : 'root',
-      database : 'showcase',
+      database : 'aultimapagina',
       charset : 'utf8mb4'
     },
     migrations: {
@@ -25,7 +25,7 @@ module.exports = {
       host : 'localhost',
       user : 'root',
       password : 'root',
-      database : 'testshowcase',
+      database : 'aultimapagina',
       charset : 'utf8mb4'
     },
     migrations: {
