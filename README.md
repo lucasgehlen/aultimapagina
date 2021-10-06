@@ -19,7 +19,7 @@ Create mysql database
 mysql -uroot -proot
 ```
 ```mysql
-CREATE DATABASE showscase;
+CREATE DATABASE aultimapagina;
 exit;
 ```
 
