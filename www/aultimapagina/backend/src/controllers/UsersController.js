@@ -1,12 +1,23 @@
-const crypto = require('crypto');
 const connection = require('../database/connection');
 const usersDao = require('../dao/UsersDao')
+const md5 = require('md5');
+const { User } = require("../models/User");
 
+const buildUser = (data) => {
+  return new User(data.id,
+    data.name, 
+    data.email, 
+    data.cellphone, 
+    data.password, 
+    data.role,
+    data.created_at,
+    data.updated_at );
+};
 
 module.exports = {
 
   async index(request, response) {
-    const users = await usersDao.get();
+    let users = await usersDao.index();
     response.json(users);
   },
 
@@ -17,21 +28,8 @@ module.exports = {
   },
 
   async create(request, response) {
-
-    let { email, name, cellphone, password } = request.body;
-    const id = crypto.randomBytes(4).toString('HEX');
-    const role = "user"
-    password = md5(password)
-
-    await connection('users').insert({
-      id,
-      name,
-      email,
-      cellphone,
-      password,
-      role
-    });
-
+    const user = buildUser(request.body);
+    const id = await usersDao.create(user);
     response.json({ id });
   },
 
@@ -40,20 +38,17 @@ module.exports = {
     const { id } = request.params;
     let { email, password } = request.body;
 
-    const data = await connection('users')
-      .where('id', id)
-      .andWhere('email', email)
-      .andWhere('password', md5(password))
-      .select('id').first();
+    const user = await usersDao.getByCredentials(id, email, password);
 
-    if (data && data.id === id) {
-      await connection('users').where('id', id).delete();
+    if (user && user.id === id) {
+      usersDao.delete(id, email, password);
     }
     else {
       return response.status(401).json({ error: "Operation not permitted" }).send();
     }
 
     return response.status(204).send();
-  }
+  },
+  
 
 }

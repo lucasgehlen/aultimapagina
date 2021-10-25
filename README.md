@@ -8,7 +8,7 @@ Runing backend application: npm start
 
 Node v14.18.0 (https://nodejs.org/)
 
-npm 6.14.13 (https://www.npmjs.com/)
+npm 6.14.15 (https://www.npmjs.com/)
 
 MySQL 5.7 (https://www.mysql.com/)
 
@@ -20,9 +20,13 @@ mysql -uroot -proot
 ```
 ```mysql
 CREATE DATABASE aultimapagina;
+DROP USER 'root'@'localhost';
+CREATE USER 'root'@'%' IDENTIFIED BY 'root';
+GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' WITH GRANT OPTION;
+ALTER USER 'root'@'%' IDENTIFIED WITH mysql_native_password BY 'root';
+FLUSH PRIVILEGES;
 exit;
 ```
-
 ### Dependencies
 
 #### Web Application & Routing

@@ -19,6 +19,7 @@
   "homepage": "https://github.com/lucasgehlen/tbd-showscase#readme",
   "dependencies": {
     "cors": "^2.8.5",
+    "date-fns": "^2.25.0",
     "express": "^4.17.1",
     "knex": "^0.95.6",
     "md5": "^2.3.0",
