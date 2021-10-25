@@ -1,0 +1,11 @@
+div#header {
+    background-color: #8b8b8f;
+}
+
+.header div span {
+    background-color: #8b8b8f;
+}
+
+div#sign-buttons div {
+    @apply py-2 w-28 text-white text-center font-bold cursor-pointer rounded-2xl mr-2
+}
