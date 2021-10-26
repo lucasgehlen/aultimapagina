@@ -1,5 +1,6 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
+import logo from "../../assets/logo.png";
 
 import './styles.css';
 
@@ -12,20 +13,18 @@ export default function Index(props) {
         history.push('/');
     };
 
-    async function handleList(e) {
+    async function handleSignUp(e) {
         e.preventDefault();
-        history.push('/list');
+        history.push('/signup');
     };
 
     return(
         <div id="header" className="flex w-full h-16 items-center px-8" >
             <div className="w-full">
-                <span className="cursor-pointer text-white text-lg font-semibold pl-4 pt-1" onClick={handleHome}>
-                    {props.title}
-                </span>
+                <img className="object-contain h-16 cursor-pointer" onClick={handleHome} src={logo} alt="Logo"/>
             </div>
-            <div id="sign-buttons" className="flex justify-end w-full" onClick={handleList}>
-                <div className="bg-green-500">
+            <div id="sign-buttons" className="flex justify-end w-full">
+                <div className="bg-green-500" onClick={handleSignUp}>
                     Registrar
                 </div>
                 <div className="bg-blue-500">

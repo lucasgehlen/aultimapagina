@@ -1,0 +1,7 @@
+div#signup-container {
+    @apply border border-4 border-gray-400 border-opacity-50 rounded-md col-start-2 col-span-3
+}
+
+input {
+    @apply shadow appearance-none border rounded w-full text-gray-700 leading-tight focus:outline-none
+}
