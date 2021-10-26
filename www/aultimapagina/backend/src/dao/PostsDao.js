@@ -6,6 +6,7 @@ module.exports = {
 
   async index(page) {
     return connection('posts')
+        .orderBy('created_at', 'desc')
         .limit(1)
         .offset((page - 1) * 1)
         .select('*');

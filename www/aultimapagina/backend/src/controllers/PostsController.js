@@ -18,7 +18,6 @@ module.exports = {
   async index(request, response) {
     const { page = 1 } = request.params;
     let posts = await postsDao.index(page);
-    console.log(posts)
     response.json(posts);
   },
 
