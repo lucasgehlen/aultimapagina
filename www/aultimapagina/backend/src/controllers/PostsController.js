@@ -18,29 +18,24 @@ module.exports = {
   async index(request, response) {
     const { page = 1 } = request.params;
     let posts = await postsDao.index(page);
-    response.json(posts);
+    return response.json(posts);
   },
 
   async get(request, response) {
     const { id } = request.params;
     const post = await postsDao.get(id);
-    response.json(post);
+    return response.json(post);
   },
 
   async create(request, response) {
     const post = buildPost(request.body);
     const id = await postsDao.create(post);
-    response.json({ id });
+    return response.json({ id });
   },
 
   async delete(request, response) {
     const { id } = request.params;
-
-    let status = postsDao.delete(id);
-
-    if (status === "400") {
-      return response.status(401).json({ error: "Operation not permitted" }).send();
-    }
+    await postsDao.delete(id);
     return response.status(204).send();
   },
 

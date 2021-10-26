@@ -1,28 +1,23 @@
-import React, {useEffect, useState} from 'react';
+import React, { useState, useEffect }  from 'react';
 import { useHistory } from 'react-router-dom';
 
 import { EyeIcon, EyeOffIcon } from '@heroicons/react/outline'
 
 import api from '../../services/api';
 import Header from '../../components/Header';
-import LogoInverted from "../../assets/logo-inverted.svg";
+import logo_inverted from "../../assets/logo-inverted.svg";
 
 import './styles.css';
 
 export default function SignUp (){
-    const eye = <EyeIcon/>;
+    const eye = <EyeIcon className="h-5 w-5 text-gray-500"/>;
     const eyeOff = <EyeOffIcon className="h-5 w-5 text-gray-500"/>;
 
-    const [name, setName] = useState('');
     const [email, setEmail] = useState('');
-    const [cellphone, setCellphone] = useState('');
     const [password, setPassword] = useState('');
-
     const [passwordShown, setPasswordShown] = useState(false);
 
-    const [nameError, setNameError] = useState(false);
     const [emailError, setEmailError] = useState(false);
-    const [cellphoneError, setCellphoneError] = useState(false);
     const [passwordError, setPasswordError] = useState(false);
 
     useEffect(() => {
@@ -33,84 +28,69 @@ export default function SignUp (){
     })
 
     const togglePasswordVisiblity = () => {
-        setPasswordShown(!passwordShown);
-    };
+        setPasswordShown(passwordShown ? false : true);
+    }
 
     const history = useHistory()
 
-    async function handleRegister(e) {
+    async function handleSignUp(e) {
+        e.preventDefault();
+        history.push('/signup');
+    }
+
+    async function handleLogin(e) {
         e.preventDefault();
 
-        const data = { name, email, cellphone, password}
+        const data = { email, password }
 
-        if (!name) setNameError(true);
         if (!email) setEmailError(true);
-        if (!cellphone) setCellphoneError(true);
         if (!password) setPasswordError(true);
 
-        if (!name || !email || !cellphone || !password) {
+        if (!email || !password) {
             alert("Um ou mais campos não foram preenchidos! Verifique e tente novamente")
             return;
         }
 
         try {
-            const response = await api.post('users', data);
-            alert(`Seu ID de acesso: ${response.data.id}`);
+            console.log(data.email)
+            const response = await api.post('session', data);
+            localStorage.setItem('id', response.data.id)
+            localStorage.setItem('email', response.data.email)
+            localStorage.setItem('name', response.data.name)
             history.push('/');
         }
-        catch (error) {
-            const status = error.response.status;
-            if (status === 409) {
-                setEmailError(true)
-            }
-            console.log(error.response.data)
-            alert(error.response.data.error);
+        catch {
+            alert("Não foi possível logar com esse usuário e senha. Tente novamente.");
         }
-    }
-
-    async function handleSignIn(e) {
-        e.preventDefault();
-        history.push('/signin');
     }
 
     return (
-        <div name="SignUp">
+        <div name="SignIn">
             <Header />
             <div id="body-container" className="grid grid-cols-5 gap-4 px-8 py-8">
-                <div id="signup-container" className="grid grid-cols-2 gap-4 px-10 py-10">
+                <div id="signin-container" className="grid grid-cols-2 gap-10 px-10 py-10">
                     <div>
-                        <img className="object-contain h-16" src={LogoInverted} alt="Logo"/>
+                        <img className="object-contain h-16" src={logo_inverted} alt="Logo"/>
                         <p className="mt-4 text-gray-700 font-semibold text-2xl font-medium">
-                            Cadastro
+                            Login
                         </p>
                         <p className="mt-4 text-gray-500 font-medium">
-                            Faça seu cadastro para publicar seus textos e receber informativos de promoções e concursos! E o melhor: totalmente grátis
+                            Faça seu login para publicar seus textos e receber informativos de promoções
+                            e concursos.
                         </p>
                         <p className="mt-4 text-gray-500 font-medium">
-                            Já tem cadastro?
-                            <p className="underline cursor-pointer text-blue-500" onClick={handleSignIn}> Crie aqui para fazer login! </p>
+                            Não é cadastrado ainda?
+                            <p className="underline cursor-pointer text-blue-500" onClick={handleSignUp}> Crie sua conta totalmente gratis! </p>
                         </p>
                     </div>
                     <div className="flex items-center">
-                        <form className="px-2 mt-2 w-full" onSubmit={handleRegister}>
-                            <input
-                                className={`py-3 px-3 mt-2 ${nameError && "border-red-500"}`}
-                                placeholder="Nome"
-                                value={name}
-                                onChange={e => {setName(e.target.value); setNameError(false)}}
-                            />
+                        <form className="px-2 mt-2 w-full" onSubmit={handleLogin}>
                             <input
                                 className={`py-3 px-3 mt-2 ${emailError && "border-red-500"}`}
                                 type="email"
                                 placeholder="E-mail"
                                 value={email}
                                 onChange={e => {setEmail(e.target.value); setEmailError(false)}}
-                            />
-                            <input
-                                className={`py-3 px-3 mt-2 ${cellphoneError && "border-red-500"}`}
-                                placeholder="Telefone"
-                                value={cellphone}
-                                onChange={e => {setCellphone(e.target.value); setCellphoneError(false)}}
                             />
                             <div className="relative flex items-center w-full">
                                 <input
@@ -125,7 +105,7 @@ export default function SignUp (){
                                     {passwordShown ? eye : eyeOff}
                                 </i>
                             </div>
-                            <button className="button w-full py-2 mt-4 mb-4 rounded-md text-white font-bold bg-green-500" type="submit">Cadastrar</button>
+                            <button className="button w-full py-2 mt-4 mb-4 rounded-md text-white font-bold bg-blue-500" type="submit">Entrar</button>
                         </form>
                     </div>
                 </div>

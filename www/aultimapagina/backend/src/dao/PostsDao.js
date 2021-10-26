@@ -7,8 +7,8 @@ module.exports = {
   async index(page) {
     return connection('posts')
         .orderBy('created_at', 'desc')
-        .limit(1)
-        .offset((page - 1) * 1)
+        .limit(10)
+        .offset((page - 1) * 10)
         .select('*');
   },
 
@@ -33,14 +33,9 @@ module.exports = {
   },
 
   async delete(id) {
-    let status;
-    connection('posts')
+    return connection('posts')
       .where('id', id)
       .delete()
-      .then(status = 204)
-      .catch(status = 400);
-
-    return status;
   },
 
 }

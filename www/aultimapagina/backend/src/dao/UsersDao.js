@@ -15,7 +15,13 @@ module.exports = {
         .where('id', id)
         .select('*')
         .first();
-    // return users.length > 0 ? users[0] : null;
+  },
+
+  async getSession(email, password) {
+    return connection('users')
+        .where('email', email)
+        .andWhere('password', md5(password))
+        .select('id', 'email', 'name').first();
   },
 
   async getByCredentials(id, email, password) {
@@ -24,7 +30,6 @@ module.exports = {
         .andWhere('email', email)
         .andWhere('password', md5(password))
         .select('id').first();
-    // return users.length > 0 ? users[0] : null;
   },
   
   async create(user) {
@@ -43,54 +48,11 @@ module.exports = {
   },
 
   async delete(id, email, password) {
-    let status;
-
-    connection('users')
+    return connection('users')
       .where('id', id)
       .andWhere('email', email)
       .andWhere('password', md5(password))
       .delete()
-      .then(status = 204)
-      .catch(status = 400);
-
-    return status;
   },
-
-  /*async createOrUpdate(user) {
-    const [success] = await connection('users')
-      .insert(user)
-      .onDuplicateUpdate('email', 'name', 'cellphone', 'password');
-
-    return success;
-  }*/
-  
-
-  /*async get(id) {
-    const users = await connection('users')
-      .where('id', id)
-      .select('*');
-
-    return users.length > 0 ? users[0] : null;
-  },
-
-  async get(id, email, password) {
-    const users = await connection('users')
-    .where('id', id)
-    .andWhere('email', email)
-    .andWhere('password', md5(password))
-    .select('*');
-
-    return users && users.length > 0 ? users[0] : null;
-  },
-
-   */
-
-  //   async saveOrUpdate(user) {
-  //     const [success] = await connection('users')
-  //       .insert(user)
-  //       .onDuplicateUpdate('login', 'avatar_url', 'url');
-
-  //     return success;
-  //   }
 
 }

@@ -9,3 +9,7 @@ div#header {
 div#sign-buttons div {
     @apply py-2 w-28 text-white text-center font-bold cursor-pointer rounded-lg mr-2
 }
+
+div#logged-buttons div {
+    @apply py-2 w-28 text-white text-center font-bold cursor-pointer rounded-lg mr-2
+}

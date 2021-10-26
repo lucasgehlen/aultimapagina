@@ -5,6 +5,8 @@ const PostsController = require('./controllers/PostsController');
 
 const routes = express.Router();
 
+routes.post('/session', UsersController.session);
+
 routes.get('/users', UsersController.index);
 routes.get('/users/:id', UsersController.get);
 routes.post('/users', UsersController.create);
