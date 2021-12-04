@@ -86,7 +86,7 @@ export default function SignUp (){
                     <div className="flex items-center">
                         <form className="px-2 mt-2 w-full" onSubmit={handleLogin}>
                             <input
-                                className={`py-3 px-3 mt-2 ${emailError && "border-red-500"}`}
+                                className={`py-3 px-3 mt-2 focus:ring-2 focus:ring-blue-500 ${emailError && "ring-2 ring-red-500"}`}
                                 type="email"
                                 placeholder="E-mail"
                                 value={email}
@@ -94,7 +94,7 @@ export default function SignUp (){
                             />
                             <div className="relative flex items-center w-full">
                                 <input
-                                    className={`py-3 px-3 mt-2 ${passwordError && "border-red-500"}`}
+                                    className={`py-3 px-3 mt-2 focus:ring-2 focus:ring-blue-500 ${passwordError && "ring-2 ring-red-500"}`}
                                     type={passwordShown ? "text" : "password"}
                                     placeholder="Senha"
                                     value={password}

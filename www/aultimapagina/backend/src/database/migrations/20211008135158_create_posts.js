@@ -4,7 +4,7 @@ exports.up = async (knex) => {
         table.string('id').primary();
         table.string('title').notNullable();
         table.string('writer');
-        table.text('text', 50000).notNullable();
+        table.text('text', 50000).notNullable().collate('utf8_unicode_ci');
         table.timestamps();
     });
 };

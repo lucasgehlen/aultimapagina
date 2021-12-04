@@ -94,27 +94,27 @@ export default function SignUp (){
                     <div className="flex items-center">
                         <form className="px-2 mt-2 w-full" onSubmit={handleRegister}>
                             <input
-                                className={`py-3 px-3 mt-2 ${nameError && "border-red-500"}`}
+                                className={`py-3 px-3 mt-2 focus:ring-2 focus:ring-blue-500 ${nameError && "ring-2 ring-red-500"}`}
                                 placeholder="Nome"
                                 value={name}
                                 onChange={e => {setName(e.target.value); setNameError(false)}}
                             />
                             <input
-                                className={`py-3 px-3 mt-2 ${emailError && "border-red-500"}`}
+                                className={`py-3 px-3 mt-2 focus:ring-2 focus:ring-blue-500 ${emailError && "ring-2 ring-red-500"}`}
                                 type="email"
                                 placeholder="E-mail"
                                 value={email}
                                 onChange={e => {setEmail(e.target.value); setEmailError(false)}}
                             />
                             <input
-                                className={`py-3 px-3 mt-2 ${cellphoneError && "border-red-500"}`}
+                                className={`py-3 px-3 mt-2 focus:ring-2 focus:ring-blue-500 ${cellphoneError && "ring-2 ring-red-500"}`}
                                 placeholder="Telefone"
                                 value={cellphone}
                                 onChange={e => {setCellphone(e.target.value); setCellphoneError(false)}}
                             />
                             <div className="relative flex items-center w-full">
                                 <input
-                                    className={`py-3 px-3 mt-2 ${passwordError && "border-red-500"}`}
+                                    className={`py-3 px-3 mt-2 focus:ring-2 focus:ring-blue-500 ${passwordError && "ring-2 ring-red-500"}`}
                                     type={passwordShown ? "text" : "password"}
                                     placeholder="Senha"
                                     value={password}

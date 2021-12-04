@@ -29,6 +29,7 @@ module.exports = {
 
   async create(request, response) {
     const post = buildPost(request.body);
+    console.log(request.body)
     const id = await postsDao.create(post);
     return response.json({ id });
   },

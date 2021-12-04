@@ -1,22 +1,11 @@
 import React from 'react';
 import { format } from 'date-fns'
-// import { useHistory } from 'react-router-dom';
+import ReactHtmlParser from "react-html-parser";
+
 
 import './styles.css';
 
 export default function Index(props) {
-
-    // const history = useHistory();
-
-    // async function handleHome(e) {
-    //     e.preventDefault();
-    //     history.push('/');
-    // };
-    //
-    // async function handleList(e) {
-    //     e.preventDefault();
-    //     history.push('/list');
-    // };
 
     return(
         <div className="py-4">
@@ -28,7 +17,7 @@ export default function Index(props) {
                     {props.data.writer}
                 </p>
                 <p className="text-gray-900 text-base py-3 text-justify">
-                    {props.data.text}
+                    {ReactHtmlParser(props.data.text)}
                 </p>
                 <p className="text-gray-400 text-sm py-3">
                     {format(new Date(props.data.created_at), "dd/MM/yyyy hh:mm:ss")}

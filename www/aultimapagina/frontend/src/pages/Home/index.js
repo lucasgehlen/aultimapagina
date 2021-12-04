@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 
 import InfiniteScroll from "react-infinite-scroller";
 import Loader from "react-loader-spinner";
@@ -8,6 +8,7 @@ import Header from '../../components/Header';
 import Post from '../../components/Post'
 
 import './styles.css';
+import {PlusCircleIcon} from "@heroicons/react/solid";
 
 class Home extends Component {
 
@@ -16,7 +17,8 @@ class Home extends Component {
 
         this.state = {
             posts: [],
-            page: 1
+            page: 1,
+            showSendText: false
         }
     }
 
@@ -35,6 +37,8 @@ class Home extends Component {
     };
 
     render() {
+        const token = localStorage.getItem('id');
+
         return (
             <div name="Home">
                 <Header title="A Última Página"/>
@@ -52,6 +56,19 @@ class Home extends Component {
                                 ))}
                             </ul>
                         </InfiniteScroll>
+                    </div>
+                    <div>
+                        <div className="fixed flex bottom-0 right-0 items-center">
+                            <div className={`mb-4 mr-1 font-semibold text-2xl text-indigo-400 ${!this.state.showSendText && "hidden"}`}>
+                                Enviar texto
+                            </div>
+                            {(token && token !== 'undefined') ? (
+                                <PlusCircleIcon
+                                    onMouseOver={e => this.setState({showSendText : true})}
+                                    onMouseOut={e => this.setState({showSendText : false})}
+                                    className="h-20 w-20 mb-4 mr-4 text-indigo-500 hover:text-indigo-800 cursor-pointer" />
+                            ) : ("")}
+                        </div>
                     </div>
                 </div>
             </div>

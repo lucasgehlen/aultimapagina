@@ -13,7 +13,7 @@ module.exports = {
   async get(id) {
     return connection('users')
         .where('id', id)
-        .select('*')
+        .select('id', 'email', 'name', 'role')
         .first();
   },
 
